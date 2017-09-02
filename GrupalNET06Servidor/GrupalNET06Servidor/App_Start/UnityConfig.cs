@@ -25,6 +25,10 @@ namespace GrupalNET06Servidor
             container.RegisterType<ITipoTareaService, TipoTareaService>(
               new Interceptor<InterfaceInterceptor>(),
               new InterceptionBehavior<LoggingInterceptionBehavior>());
+            container.RegisterType<IEjecucionRepository, EjecucionRepository>();
+            container.RegisterType<IEjecucionService, EjecucionService>(
+              new Interceptor<InterfaceInterceptor>(),
+              new InterceptionBehavior<LoggingInterceptionBehavior>());
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }

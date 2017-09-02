@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 using System.Data.Entity;
 using System;
 
@@ -31,6 +30,7 @@ namespace GrupalNET06Servidor.Models
         }
 
         public DbSet<TipoTarea> TipoTareas { get; set; }
+        public DbSet<Ejecucion> Ejecuciones { get; set; }
 
         public static ApplicationDbContext Create()
         {
