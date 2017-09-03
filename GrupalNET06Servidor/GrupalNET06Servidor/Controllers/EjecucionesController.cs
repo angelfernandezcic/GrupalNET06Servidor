@@ -1,28 +1,33 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using GrupalNET06Servidor.Models;
+using GrupalNET06Servidor.Service;
+using System.Web.Http.Cors;
 
 namespace GrupalNET06Servidor.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EjecucionesController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private IEjecucionService ejecucionService;
+
+        public EjecucionesController(IEjecucionService _ejecucionService)
+        {
+            this.ejecucionService = _ejecucionService;
+        }
 
         // GET: api/Ejecuciones
         public IQueryable<Ejecucion> GetEjecuciones()
         {
-            return db.Ejecuciones;
+            return ejecucionService.Get();
         }
 
         // GET: api/Ejecuciones/5
         [ResponseType(typeof(Ejecucion))]
         public IHttpActionResult GetEjecucion(long id)
         {
-            Ejecucion ejecucion = db.Ejecuciones.Find(id);
+            Ejecucion ejecucion = ejecucionService.Get(id);
             if (ejecucion == null)
             {
                 return NotFound();
@@ -45,22 +50,13 @@ namespace GrupalNET06Servidor.Controllers
                 return BadRequest();
             }
 
-            db.Entry(ejecucion).State = EntityState.Modified;
-
             try
             {
-                db.SaveChanges();
+                ejecucionService.Put(ejecucion);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (NoEncontradoException)
             {
-                if (!EjecucionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -75,8 +71,7 @@ namespace GrupalNET06Servidor.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Ejecuciones.Add(ejecucion);
-            db.SaveChanges();
+            ejecucion = ejecucionService.Create(ejecucion);
 
             return CreatedAtRoute("DefaultApi", new { id = ejecucion.Id }, ejecucion);
         }
@@ -85,30 +80,17 @@ namespace GrupalNET06Servidor.Controllers
         [ResponseType(typeof(Ejecucion))]
         public IHttpActionResult DeleteEjecucion(long id)
         {
-            Ejecucion ejecucion = db.Ejecuciones.Find(id);
-            if (ejecucion == null)
+            Ejecucion ejecucion;
+            try
+            {
+                ejecucion = ejecucionService.Delete(id);
+            }
+            catch (NoEncontradoException)
             {
                 return NotFound();
             }
 
-            db.Ejecuciones.Remove(ejecucion);
-            db.SaveChanges();
-
             return Ok(ejecucion);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool EjecucionExists(long id)
-        {
-            return db.Ejecuciones.Count(e => e.Id == id) > 0;
         }
     }
 }
