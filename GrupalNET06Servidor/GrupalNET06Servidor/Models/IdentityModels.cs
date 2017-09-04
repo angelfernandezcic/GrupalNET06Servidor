@@ -31,6 +31,7 @@ namespace GrupalNET06Servidor.Models
 
         public DbSet<TipoTarea> TipoTareas { get; set; }
         public DbSet<Ejecucion> Ejecuciones { get; set; }
+        public DbSet<Tarea> Tareas { get; set; }
 
         public static ApplicationDbContext Create()
         {

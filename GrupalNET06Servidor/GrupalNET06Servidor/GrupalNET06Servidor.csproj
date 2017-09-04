@@ -273,6 +273,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EjecucionesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TareaController.cs" />
     <Compile Include="Controllers\TipoTareasController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Ejecucion.cs" />
@@ -287,14 +288,19 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Repository\EjecucionRepository.cs" />
     <Compile Include="Repository\IEjecucionRepository.cs" />
+    <Compile Include="Repository\ITareaRepository.cs" />
     <Compile Include="Repository\ITipoTareaRepository.cs" />
+    <Compile Include="Repository\TareaRepository.cs" />
     <Compile Include="Repository\TipoTareaRepository.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Service\EjecucionService.cs" />
     <Compile Include="Service\IEjecucionService.cs" />
+    <Compile Include="Service\ITareaService.cs" />
     <Compile Include="Service\ITipoTareaService.cs" />
+    <Compile Include="Service\TareaService.cs" />
     <Compile Include="Service\TipoTareaService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Tarea.cs" />
     <Compile Include="TipoTarea.cs" />
   </ItemGroup>
   <ItemGroup>

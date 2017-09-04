@@ -17,13 +17,13 @@ namespace GrupalNET06Servidor.Controllers
             this.ejecucionService = _ejecucionService;
         }
 
-        // GET: api/Ejecuciones
+        // GET: api/Tareas
         public IQueryable<Ejecucion> GetEjecuciones()
         {
             return ejecucionService.Get();
         }
 
-        // GET: api/Ejecuciones/5
+        // GET: api/Tareas/5
         [ResponseType(typeof(Ejecucion))]
         public IHttpActionResult GetEjecucion(long id)
         {
@@ -36,7 +36,7 @@ namespace GrupalNET06Servidor.Controllers
             return Ok(ejecucion);
         }
 
-        // PUT: api/Ejecuciones/5
+        // PUT: api/Tareas/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutEjecucion(long id, Ejecucion ejecucion)
         {
@@ -62,7 +62,7 @@ namespace GrupalNET06Servidor.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Ejecuciones
+        // POST: api/Tareas
         [ResponseType(typeof(Ejecucion))]
         public IHttpActionResult PostEjecucion(Ejecucion ejecucion)
         {
@@ -76,7 +76,7 @@ namespace GrupalNET06Servidor.Controllers
             return CreatedAtRoute("DefaultApi", new { id = ejecucion.Id }, ejecucion);
         }
 
-        // DELETE: api/Ejecuciones/5
+        // DELETE: api/Tarea/5
         [ResponseType(typeof(Ejecucion))]
         public IHttpActionResult DeleteEjecucion(long id)
         {
